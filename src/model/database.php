@@ -32,7 +32,14 @@ function findfam( $table = null, $id = null ) {
 			//$sql = "SELECT f.id, f.nome, f.quantidade_membros, COUNT(g.id) as guerras  FROM  familias as f INNER JOIN guerras as g where g.id_familia_desafiadora  = f.id  OR g.id_familia_desafiada  = f.id GROUP BY f.id;";
 
 
-			$sql = "SELECT * FROM " . $table;
+			$sql = "SELECT f.id, f.nome, f.quantidade_membros, COUNT(DISTINCT g1.id) as guerras, COUNT(DISTINCT g2.id) as vitorias, COUNT(DISTINCT g3.id) as derrotas  
+			FROM familias as f 
+			LEFT JOIN guerras as g1 ON g1.id_familia_desafiadora  = f.id  OR g1.id_familia_desafiada  = f.id
+			LEFT JOIN guerras as g2 ON (f.id = g2.id_familia_desafiadora or f.id = g2.id_familia_desafiada) AND
+			g2.id_familia_vencedora = f.id
+			LEFT JOIN guerras as g3 ON (f.id = g3.id_familia_desafiadora or f.id = g3.id_familia_desafiada)
+			AND g3.id_familia_vencedora != f.id
+			group by f.id";
 			$result = $database->query($sql);
 			if ($result->num_rows > 0) {
 				$found = $result->fetch_all(MYSQLI_ASSOC);

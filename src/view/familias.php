@@ -36,9 +36,9 @@ $count = 0;
           <tr>
             <td><?php echo $familia['nome']; ?></td>
             <td><?php echo $familia['quantidade_membros']; ?></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td><?php echo $familia['guerras']; ?></td>
+            <td><?php echo $familia['vitorias']; ?></td>
+            <td><?php echo $familia['derrotas']; ?></td>
             <td class="actions">
               <a href="<?php echo BASEURL; ?>view/editfam.php?id=<?php echo $familia['id']; ?>" class="btn btn-sm btn-primary">
                 <i class="fa fa-pencil"></i> Editar</a>
