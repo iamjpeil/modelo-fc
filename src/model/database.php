@@ -29,7 +29,8 @@ function findfam( $table = null, $id = null ) {
 		} else {
 
 
-			
+			//$sql = "SELECT f.id, f.nome, f.quantidade_membros, COUNT(g.id) as guerras  FROM  familias as f INNER JOIN guerras as g where g.id_familia_desafiadora  = f.id  OR g.id_familia_desafiada  = f.id GROUP BY f.id;";
+
 
 			$sql = "SELECT * FROM " . $table;
 			$result = $database->query($sql);
@@ -57,25 +58,37 @@ function findfam( $table = null, $id = null ) {
 
 
 	/**	 *  Pesquisa um Registro pelo ID em uma Tabela	 */
-function findgue( $table = null, $id = null ) {
-	$database = open_database();
-	$found = null;
-	try {
-		if ($id) {
-			$sql = "SELECT * FROM " . $table . " WHERE id = " . $id;
-			$result = $database->query($sql);
-			if ($result->num_rows > 0) {
-				$found = $result->fetch_assoc();
-			}		    		  
-		} else {
+	function findgue( $table = null, $id = null ) {
+		$database = open_database();
+		$found = null;
+		try {
+			if ($id) {
+				$sql = "SELECT * FROM " . $table . " WHERE id = " . $id;
+				$result = $database->query($sql);
+				if ($result->num_rows > 0) {
+					$found = $result->fetch_assoc();
+				}		    		  
+			} else {
 
 
-			
 
-			$sql = "SELECT * FROM " . $table;
-			$result = $database->query($sql);
-			if ($result->num_rows > 0) {
-				$found = $result->fetch_all(MYSQLI_ASSOC);
+
+			//$sql = "SELECT * FROM " . $table;
+
+				$sql = "SELECT 
+				g.id,
+				f1.nome as desafiadora, 
+				f2.nome as desafiada,
+				f3.nome as vencedora,
+				g.data_inicio,
+				g.data_fim
+				FROM guerras as g 
+				INNER JOIN familias as f1 ON g.id_familia_desafiadora = f1.id 
+				INNER JOIN familias as f2 ON g.id_familia_desafiada = f2.id 
+				INNER JOIN familias as f3 ON g.id_familia_vencedora = f3.id";
+				$result = $database->query($sql);
+				if ($result->num_rows > 0) {
+					$found = $result->fetch_all(MYSQLI_ASSOC);
 				/* Metodo alternativo	        
 				$found = array();
 		        while ($row = $result->fetch_assoc()) {

@@ -33,8 +33,8 @@ function edit() {
 	}
 }
 
-	function delete($id = null) {
+function delete($id = null) {
 		global $familia;
 		$familia = remove('familias', $id);	
 		header('location: familias.php');
-	}
+}

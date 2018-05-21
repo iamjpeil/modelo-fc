@@ -52,11 +52,11 @@ $count = 0;
         <?php foreach ($guerras as $guerra) : ?>
           <?php $count = $count + 1;?>
           <tr>
-            <td><?php echo $guerra['id_familia_desafiadora']; ?></td>
-            <td><?php echo $guerra['id_familia_desafiada']; ?></td>
+            <td><?php echo $guerra['desafiadora']; ?></td>
+            <td><?php echo $guerra['desafiada']; ?></td>
             <td><?php echo $guerra['data_inicio']; ?></td>
             <td><?php echo $guerra['data_fim']; ?></td>
-            <td><?php echo $guerra['id_familia_vencedora']; ?></td>
+            <td><?php echo $guerra['vencedora']; ?></td>
             <td class="actions">
               <a href="<?php echo BASEURL; ?>view/editgue.php?id=<?php echo $guerra['id']; ?>" class="btn btn-sm btn-primary">
                 <i class="fa fa-pencil"></i> Editar</a>
@@ -74,11 +74,14 @@ $count = 0;
        </tbody>
      </table>
 
-     <div style="margin-left: 45%;"><button type="button" class="btn-lg btn-dark">Adicionar Guerra</button></div>
+     <!--<div style="margin-left: 45%;"><button type="button" class="btn-lg btn-dark">Adicionar Guerra</button></div>-->
+
+     <div style="margin-left: 45%;"><a class="btn-lg btn-dark" href="<?php echo BASEURL; ?>view/addgue.php"><i class="fa fa-plus"></i> Adicionar Guerra</a></div>
+
    <?php else : ?> 
     <div class="alert alert-danger" role="alert">
      <p><strong>ERRO:</strong> Não foi possível Conectar ao Banco de Dados!</p>    
    </div>  
  <?php endif; ?>
-
+ <?php include('../view/includes/modaldelgue.php'); ?>
  <?php include(FOOTER_TEMPLATE); ?>

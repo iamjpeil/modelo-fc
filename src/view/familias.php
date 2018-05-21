@@ -72,5 +72,5 @@ $count = 0;
    </div>  
  <?php endif; ?>
  <!--<?php include('modaladd.php'); ?>-->
- <?php include('../view/includes/modaldel.php'); ?>
+ <?php include('../view/includes/modaldelfam.php'); ?>
  <?php include(FOOTER_TEMPLATE); ?>
